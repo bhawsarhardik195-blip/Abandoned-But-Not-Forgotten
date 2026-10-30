@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RED HORIZON & ABANDONED BUT NOT FORGOTTEN — Unified Interactive Historical Space Exploration Storybook exploring Mars and Moon exploration.">
+  <title>RED HORIZON & ABANDONED BUT NOT FORGOTTEN — Space Exploration Storybook</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-medium theme-mars">
+
+  <!-- ====================================================================
+       FIRST SCREEN: STORYBOOK INTRODUCTION PAGE & GATEWAY
+       ==================================================================== -->
+  <section class="story-gateway screen" id="story-gateway" data-screen="gateway" aria-labelledby="gw-title">
+    <div class="gw-backdrop" aria-hidden="true">
+      <div class="gw-stars"></div>
+    </div>
+    
+    <main id="main" class="gw-inner">
+      <header class="gw-head">
+        <p class="eyebrow" id="gw-eyebrow" data-i18n="eyebrow">A cinematic interactive storybook</p>
+        <h1 id="gw-title" class="gw-title">Abandoned, But Not Forgotten</h1>
+        <p class="gw-sub" id="gw-sub">MARS + MOON <span aria-hidden="true">—</span> <span id="gw-subtitle" data-i18n="subtitle">A CINEMATIC INTERACTIVE STORYBOOK</span></p>
+        <p class="gw-intro" id="gw-intro" data-i18n="intro">Step into two illustrated stories of exploration across Mars and the Moon, chronicling humanity's greatest exploratory quests. Choose a world, a language, and how you want to read.</p>
+      </header>
+
+      <fieldset class="story-pick">
+        <legend class="sr-only" id="gw-legend" data-i18n="chooseStory">Choose a story</legend>
+        
+        <label class="story-card" data-story="mars" id="btn-gateway-mars">
+          <input type="radio" name="story" value="mars" class="sr-only" checked>
+          <span class="card-img" id="card-img-mars" aria-hidden="true" style="background-image: url('assets/images/mars%20images/chapter%206/scene%201/1F.jpeg');"></span>
+          <span class="card-body">
+            <span class="card-kicker" id="mars-kicker" data-i18n="marsKicker">6 chapters · 1960 – today</span>
+            <span class="card-title" id="mars-title" data-i18n="exploreMars" title="START MARS STORY">Explore Mars</span>
+            <span class="card-desc" id="mars-desc" data-i18n="marsDesc">From the first lost probes to Viking, the rovers, Mangalyaan and Perseverance.</span>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </span>
+        </label>
+
+        <label class="story-card" data-story="moon" id="btn-gateway-moon">
+          <input type="radio" name="story" value="moon" class="sr-only">
+          <span class="card-img" id="card-img-moon" aria-hidden="true" style="background-image: url('assets/images/moon%20images/chapter%202/scene%204/4E.jpeg');"></span>
+          <span class="card-body">
+            <span class="card-kicker" id="moon-kicker" data-i18n="moonKicker">7 chapters · 1960s – today</span>
+            <span class="card-title" id="moon-title" data-i18n="exploreMoon" title="EXPLORE THE MOON">Explore the Moon</span>
+            <span class="card-desc" id="moon-desc" data-i18n="moonDesc">From the Apollo tests and first footprints to the equipment left behind, and the missions that return.</span>
+            <span class="card-check" aria-hidden="true">✓</span>
+          </span>
+        </label>
+      </fieldset>
+
+      <section class="setup" aria-label="Reading options">
+        <div class="setup-group">
+          <span class="setup-label" id="lbl-lang" data-i18n="language">Language</span>
+          <div class="seg" role="radiogroup" aria-labelledby="lbl-lang" id="seg-lang">
+            <button type="button" role="radio" aria-checked="true" data-lang="en" id="gw-lang-en">English</button>
+            <button type="button" role="radio" aria-checked="false" data-lang="hi" id="gw-lang-hi" lang="hi">हिन्दी</button>
+          </div>
+        </div>
+        <div class="setup-group">
+          <span class="setup-label" id="lbl-mode" data-i18n="playback">Playback</span>
+          <div class="seg" role="radiogroup" aria-labelledby="lbl-mode" id="seg-mode">
+            <button type="button" role="radio" aria-checked="true" data-mode="auto" data-i18n="auto" id="gw-mode-auto">Automatic</button>
+            <button type="button" role="radio" aria-checked="false" data-mode="manual" data-i18n="manual" id="gw-mode-manual">Manual</button>
+          </div>
+          <p class="setup-hint" id="mode-hint" data-i18n="autoHint">The story plays by itself, scene after scene.</p>
+        </div>
+      </section>
+
+      <div class="begin-row">
+        <button type="button" id="btn-begin" class="btn-begin" data-i18n="beginMars" data-action="START MARS STORY">Begin the Mars story</button>
+        <p class="begin-note" id="begin-note" role="status"></p>
+      </div>
+
+      <footer class="gw-foot">
+        <button type="button" class="link-btn" id="btn-credits-gw" data-i18n="credits">Credits &amp; disclosures</button>
+      </footer>
+    </main>
+  </section>
+
+
+  <!-- ====================================================================
+       MAIN STORYBOOK APP
+       ==================================================================== -->
+  <div class="storybook-app" id="storybook-app">
+
+    <!-- Top Navigation Header -->
+    <header class="storybook-header" id="main-header" role="banner">
+      
+      <!-- Left: Story Switcher & Brand Section -->
+      <div class="brand-section">
+        <!-- Interactive Story Switcher Pill -->
+        <div class="story-switcher-control" id="story-switcher-control" role="group" aria-label="Select Story">
+          <button class="story-pill active" id="btn-story-mars" title="Switch to Red Horizon: The Mars Chronicles">
+            <span>🔴 Mars</span>
+          </button>
+          <button class="story-pill" id="btn-story-moon" title="Switch to Abandoned But Not Forgotten: The Moon Story">
+            <span>🌕 Moon</span>
+          </button>
+        </div>
+
+        <div class="title-group">
+          <span class="main-title" id="header-story-title">Red Horizon — The Mars Chronicles</span>
+          <span class="sub-title" id="header-story-subtitle">From First Attempts to the Search for Ancient Life</span>
+        </div>
+      </div>
+
+      <!-- Current Chapter & Scene Indicator -->
+      <div class="center-indicator" aria-live="polite">
+        <span class="chapter-badge" id="header-chapter-badge">Ch. 1 — The Blind Leap</span>
+        <span class="indicator-divider" aria-hidden="true">•</span>
+        <span class="scene-name-badge" id="header-scene-badge">Scene 1: A World Beyond Reach</span>
+      </div>
+
+      <!-- Header Tools & Segmented Controls -->
+      <div class="header-actions">
+        
+        <!-- Language Switcher Pill (English / Hindi) -->
+        <div class="lang-switcher-control" role="group" aria-label="Language Selector">
+          <button class="lang-pill active" id="btn-lang-en" title="English Narration & Dialogue">EN</button>
+          <button class="lang-pill" id="btn-lang-hi" title="हिंदी व्याख्या और संवाद">हिन्दी</button>
+        </div>
+
+        <!-- Playback Mode Switcher (Automatic / Manual) -->
+        <div class="mode-switcher-control" id="mode-switcher-control" role="group" aria-label="Playback Mode">
+          <button class="mode-pill active" id="btn-mode-auto" title="Automatic Mode: Story advances continuously through all scenes">
+            <span>▶ Auto</span>
+          </button>
+          <button class="mode-pill" id="btn-mode-manual" title="Manual Mode: Control scene and passage navigation yourself">
+            <span>✋ Manual</span>
+          </button>
+        </div>
+
+        <!-- Hotspots Toggle -->
+        <button class="nav-pill-btn active" id="btn-toggle-hotspots" title="Toggle Interactive Points on Artwork [H]" aria-label="Toggle Interactive Hotspots">
+          <span class="pill-icon">🔍</span>
+          <span>Hotspots</span>
+        </button>
+
+        <!-- Chapter Navigator Menu -->
+        <button class="nav-pill-btn" id="btn-chapter-menu" title="Chapters & Timeline Map" aria-label="Open Chapter Selector">
+          <span class="pill-icon">📑</span>
+          <span>Chapters</span>
+        </button>
+
+        <!-- Return to Story Gateway -->
+        <button class="nav-icon-btn" id="btn-open-gateway" title="Story Gateway & Selector" aria-label="Story Selector">
+          <span>🌌</span>
+        </button>
+
+        <!-- Immersive Mode Toggle -->
+        <button class="nav-icon-btn" id="btn-toggle-immersive" title="Immersive View [I]" aria-label="Toggle Immersive Mode">
+          <span>👁️</span>
+        </button>
+
+        <!-- Settings Button -->
+        <button class="nav-icon-btn" id="btn-settings" title="Reading & Audio Settings" aria-label="Open Settings">
+          <span>⚙️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Floating Immersive Exit Pill -->
+    <button class="immersive-exit-btn" id="immersive-exit-btn" title="Exit Immersive Mode [Esc]">
+      <span>✕ Exit Immersive View</span>
+    </button>
+
+    <!-- Main Stage: Artwork Viewport & Dialogue HUD -->
+    <main class="stage-container" id="stage-container" role="main">
+      
+      <!-- Primary Artwork Viewport -->
+      <section class="illustration-viewport" id="illustration-viewport" aria-label="Scene Artwork Viewport">
+        <!-- Main Image -->
+        <img 
+          id="current-illustration" 
+          class="illustration-image" 
+          src="assets/images/mars images/chapter 1/scene 1/1A.jpeg" 
+          alt="Mars Scene Illustration" 
+        />
+
+        <!-- Main Video for Animated Story Scenes -->
+        <video 
+          id="current-video" 
+          class="illustration-video" 
+          playsinline 
+          style="display: none;"
+          aria-label="Scene Animation Video"
+        ></video>
+
+        <!-- Fallback Container if Image is Unavailable -->
+        <div class="image-fallback-container" id="image-fallback" style="display: none;" aria-live="polite">
+          <div class="fallback-icon">🌌</div>
+          <h2 id="fallback-title">Illustration Loading</h2>
+          <p id="fallback-desc">Preserving scene context while image asset is being synchronized.</p>
+        </div>
+
+        <!-- Atmospheric Vignette Overlay -->
+        <div class="viewport-vignette" aria-hidden="true"></div>
+
+        <!-- Floating Info Bar Over Viewport -->
+        <div class="viewport-info-bar">
+          <div class="info-pill">
+            <span aria-hidden="true">🖼️</span>
+            <span id="viewport-image-desc">Mars Exploration Scene</span>
+          </div>
+
+          <!-- Video Audio Status Badge -->
+          <button class="video-audio-badge" id="video-audio-badge" style="display: none;" title="Video Audio is Active (Click to Mute / Unmute)">
+            <span class="sound-icon">🔊</span>
+            <span id="video-audio-text">Original Video Audio Playing</span>
+          </button>
+
+          <button class="hotspots-hint-btn" id="hotspots-hint-btn" style="display: none;">
+            <span>🔍</span>
+            <span id="viewport-hotspots-count">1 Point</span>
+          </button>
+        </div>
+
+        <!-- Synchronized Subtitles Overlay -->
+        <div class="viewport-subtitles-container" id="viewport-subtitles-container" aria-live="polite">
+          <div class="viewport-subtitles" id="viewport-subtitles"></div>
+        </div>
+
+        <!-- Interactive Hotspot Node Overlays -->
+        <div class="hotspots-layer" id="hotspots-layer" aria-label="Interactive Objects on Artwork"></div>
+      </section>
+
+      <!-- Dialogue HUD / Bottom Text Panel -->
+      <section class="dialogue-hud" id="dialogue-hud" aria-label="Authoritative Script Dialogue Box">
+        <!-- Dialogue Header -->
+        <header class="dialogue-header">
+          <div class="speaker-profile">
+            <div class="speaker-avatar" id="speaker-avatar" aria-hidden="true">🚀</div>
+            <div class="speaker-text-group">
+              <span class="speaker-name" id="speaker-name">The Early Mars Probes</span>
+              <span class="speaker-role-label" id="speaker-role">Fictionalized First-Person Narration</span>
+            </div>
+          </div>
+
+          <div class="dialogue-meta-group">
+            <span class="passage-counter" id="passage-counter" aria-label="Current passage index">Passage 1 of 5</span>
+          </div>
+        </header>
+
+        <!-- Dialogue Text Body (Author's Verbatim Script Text) -->
+        <div class="dialogue-content" aria-live="polite">
+          <blockquote class="dialogue-quote" id="dialogue-quote">
+            "I was built for a destination humanity had never reached."
+          </blockquote>
+        </div>
+
+        <!-- Dialogue Controls Footer -->
+        <footer class="dialogue-footer">
+          <!-- Left: Scene Step -->
+          <div class="hud-group">
+            <button class="hud-btn" id="btn-prev-scene" disabled title="Previous Scene">
+              <span>« Prev Scene</span>
+            </button>
+            <button class="hud-btn" id="btn-next-scene" disabled title="Next Scene">
+              <span>Next Scene »</span>
+            </button>
+          </div>
+
+          <!-- Center: Passage Step, Narration & Playback Speed -->
+          <div class="hud-group hud-center-controls">
+            <button class="hud-btn" id="btn-prev-passage" title="Previous Passage [←]">
+              <span>‹ Previous</span>
+            </button>
+
+            <!-- Narration Play/Pause -->
+            <button class="hud-btn hud-btn-accent" id="btn-narration" title="Play or pause narration [Space]">
+              <span class="audio-waves" id="narration-wave" aria-hidden="true">
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+              </span>
+              <span id="narration-btn-label">Narrate Passage</span>
+            </button>
+
+            <button class="hud-btn hud-btn-primary" id="btn-next-passage" title="Next Passage [→]">
+              <span>Next ›</span>
+            </button>
+
+            <!-- Narration Speed Selector -->
+            <div class="hud-speed-wrapper">
+              <label for="rate-select" class="speed-label">Speed:</label>
+              <select id="rate-select" class="hud-select" title="Adjust Narration Playback Speed">
+                <option value="0.5">0.5×</option>
+                <option value="0.75">0.75×</option>
+                <option value="1.0" selected>1.0×</option>
+                <option value="1.25">1.25×</option>
+                <option value="1.75">1.75×</option>
+                <option value="2.0">2.0×</option>
+              </select>
+            </div>
+
+            <!-- Subtitle CC Toggle -->
+            <button class="hud-btn hud-btn-icon active" id="btn-toggle-subtitles" title="Toggle Synchronized Subtitles">
+              <span>CC</span>
+            </button>
+          </div>
+
+        </footer>
+      </section>
+
+    </main>
+
+    <!-- Accessible Keyboard Navigation Legend -->
+    <aside class="keyboard-legend-bar" aria-label="Keyboard Shortcuts">
+      <span><span class="kbd-badge">← / →</span> Navigate Passages</span>
+      <span><span class="kbd-badge">A</span> Auto / Manual</span>
+      <span><span class="kbd-badge">Space</span> Narration</span>
+      <span><span class="kbd-badge">H</span> Hotspots</span>
+      <span><span class="kbd-badge">L</span> Toggle Language</span>
+      <span><span class="kbd-badge">I</span> Immersive</span>
+      <span><span class="kbd-badge">Esc</span> Close / Exit</span>
+    </aside>
+
+    <!-- ====================================================================
+         MODALS & DRAWERS
+         ==================================================================== -->
+
+    <!-- 1. Educational Extra Dossier Card Modal -->
+    <div class="modal-backdrop" id="dossier-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="dossier-title">
+      <article class="modal-card">
+        <header class="modal-header">
+          <div class="modal-title-group">
+            <div class="modal-badge-row">
+              <span class="fact-badge verified" id="dossier-badge">✓ Established Historical Fact</span>
+              <span class="fact-badge category" id="dossier-category">Spacecraft System</span>
+            </div>
+            <h2 class="modal-title" id="dossier-title">Technical Dossier</h2>
+          </div>
+          <button class="modal-close-btn" id="btn-close-dossier" aria-label="Close Educational Card">&times;</button>
+        </header>
+
+        <div class="modal-body">
+          <div class="dossier-section">
+            <span class="dossier-label">What It Is</span>
+            <p class="dossier-value" id="dossier-what"></p>
+          </div>
+
+          <div class="dossier-section">
+            <span class="dossier-label">Historical Purpose</span>
+            <p class="dossier-value" id="dossier-purpose"></p>
+          </div>
+
+          <div class="dossier-section">
+            <span class="dossier-label">How It Worked</span>
+            <p class="dossier-value" id="dossier-how"></p>
+          </div>
+
+          <div class="dossier-section">
+            <span class="dossier-label">Why It Mattered to the Mission</span>
+            <p class="dossier-value" id="dossier-why"></p>
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <span>Historical Technical Archive • NASA & ISRO Public Records</span>
+          <span>Press <strong>Esc</strong> to close</span>
+        </footer>
+      </article>
+    </div>
+
+    <!-- 2. Chapter Navigator Drawer / Modal -->
+    <div class="modal-backdrop" id="chapter-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="chapter-modal-title">
+      <div class="modal-card">
+        <header class="modal-header">
+          <div class="modal-title-group">
+            <span class="chapter-number-pill" id="chapter-modal-story-tag">Mars Chronicles</span>
+            <h2 class="modal-title" id="chapter-modal-title">Chapters & Timeline Map</h2>
+          </div>
+          <button class="modal-close-btn" id="btn-close-chapter-modal" aria-label="Close Chapter Menu">&times;</button>
+        </header>
+
+        <div class="modal-body">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;" id="chapter-modal-desc">
+            Chronological mission chapters tracing robotic and human space exploration.
+          </p>
+          <div class="chapter-list" id="chapter-list">
+            <!-- Dynamically populated from active story data -->
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <button class="hud-btn" id="btn-modal-switch-story">Switch Story</button>
+          <span>Press <strong>Esc</strong> to close</span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- 3. Settings & Accessibility Modal -->
+    <div class="modal-backdrop" id="settings-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="settings-title">
+      <div class="modal-card" style="max-width: 520px;">
+        <header class="modal-header">
+          <h2 class="modal-title" id="settings-title">Reading & Audio Settings</h2>
+          <button class="modal-close-btn" id="btn-close-settings" aria-label="Close Settings">&times;</button>
+        </header>
+
+        <div class="modal-body">
+          <div class="settings-grid">
+            
+            <!-- Language Setting -->
+            <div class="setting-row">
+              <div class="setting-label-group">
+                <span class="setting-title" id="s-lang-title">Narration Language</span>
+                <span class="setting-desc" id="s-lang-desc">Switch between fluent English and Hindi narration.</span>
+              </div>
+              <div class="lang-switcher-control">
+                <button class="lang-pill" id="settings-lang-en">English</button>
+                <button class="lang-pill" id="settings-lang-hi">हिन्दी</button>
+              </div>
+            </div>
+
+            <!-- Narrator Voice Pack Setting (Storybook Voice Pack) -->
+            <div class="setting-row" id="setting-row-voice">
+              <div class="setting-label-group">
+                <span class="setting-title" id="s-voice-title">Narrator Voice</span>
+                <span class="setting-desc" id="s-voice-desc">Choose from all available speech voices on your device.</span>
+              </div>
+              <div class="setting-control-group" style="display: flex; flex-direction: column; width: 100%; max-width: 260px;">
+                <select id="voice-select" class="hud-select" aria-label="Narrator Voice" style="width: 100%;"></select>
+                <p class="set-hint" id="voice-hint" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 5px; line-height: 1.4;"></p>
+              </div>
+            </div>
+
+            <!-- Auto-Advance Narration -->
+            <div class="setting-row">
+              <div class="setting-label-group">
+                <span class="setting-title">Auto-Advance Narration</span>
+                <span class="setting-desc">Automatically advance to the next passage when narration finishes.</span>
+              </div>
+              <div class="toggle-switch" id="toggle-auto-narrate" role="switch" aria-checked="false" tabindex="0">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+
+            <!-- Dialogue Text Sizing -->
+            <div class="setting-row">
+              <div class="setting-label-group">
+                <span class="setting-title">Dialogue Text Size</span>
+                <span class="setting-desc">Adjust script typography scale for comfortable reading.</span>
+              </div>
+              <select id="text-size-select" class="hud-select">
+                <option value="small">Compact</option>
+                <option value="medium" selected>Standard</option>
+                <option value="large">Enlarged</option>
+              </select>
+            </div>
+
+            <!-- Subtitle Size -->
+            <div class="setting-row">
+              <div class="setting-label-group">
+                <span class="setting-title">Subtitle Size</span>
+                <span class="setting-desc">Size of the subtitles shown over the picture.</span>
+              </div>
+              <select id="subtitle-size-select" class="hud-select" aria-label="Subtitle size">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+                <option value="xlarge">Extra Large</option>
+              </select>
+            </div>
+
+            <!-- High Contrast Mode -->
+            <div class="setting-row">
+              <div class="setting-label-group">
+                <span class="setting-title">High-Contrast Mode</span>
+                <span class="setting-desc">Maximize contrast for daylight or low-vision reading.</span>
+              </div>
+              <div class="toggle-switch" id="toggle-contrast" role="switch" aria-checked="false" tabindex="0">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+
+            <!-- Hotspots Visibility -->
+            <div class="setting-row">
+              <div class="setting-label-group">
+                <span class="setting-title">Interactive Hotspots</span>
+                <span class="setting-desc">Display clickable educational points on illustrations.</span>
+              </div>
+              <div class="toggle-switch active" id="toggle-hotspots-setting" role="switch" aria-checked="true" tabindex="0">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+
+            <!-- Reset Progress -->
+            <div class="setting-row" style="border-bottom: 1px solid var(--border-subtle); padding-top: 8px;">
+              <div class="setting-label-group">
+                <span class="setting-title" style="color: #ff7e47;">Restart Current Story</span>
+                <span class="setting-desc">Reset progress back to Chapter 1, Scene 1 of this story.</span>
+              </div>
+              <button class="hud-btn" id="btn-reset-story" style="background: rgba(255, 71, 71, 0.15); border-color: #ff4747; color: #ff7e7e;">
+                Reset
+              </button>
+            </div>
+
+            <!-- Credits & Disclosures Link in Settings -->
+            <div class="setting-row" style="border-bottom: none; padding-top: 10px;">
+              <div class="setting-label-group">
+                <span class="setting-title" id="s-credits-title">Credits &amp; Disclosures</span>
+                <span class="setting-desc" id="s-credits-desc">Artistic AI generation, voice narration, and historical record disclosures.</span>
+              </div>
+              <button type="button" class="link-btn" id="btn-credits-set" style="color: var(--primary-gold, #ff9466); text-decoration: underline; font-size: 0.88rem; cursor: pointer; text-align: right;">
+                View Credits
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <span>Settings persist automatically in local browser storage</span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- 4. Storybook Credits & Disclosures Modal -->
+    <div class="modal-backdrop" id="credits-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cr-title">
+      <div class="modal-card wide" id="credits-card" style="max-width: 720px;">
+        <header class="modal-header">
+          <h2 class="modal-title" id="cr-title" data-i18n="credits">Credits &amp; disclosures</h2>
+          <button class="modal-close-btn" id="btn-close-credits" aria-label="Close Credits">&times;</button>
+        </header>
+        <div class="modal-body" id="credits-body" style="line-height: 1.65; font-size: 0.95rem; max-height: 68vh; overflow-y: auto;">
+          <!-- Dynamically populated in English or Hindi -->
+        </div>
+        <footer class="modal-footer">
+          <span>Press <strong>Esc</strong> to close</span>
+        </footer>
+      </div>
+    </div>
+
+    <!-- 5. Final Ending Sequence Overlay Screen -->
+    <div class="ending-screen" id="ending-screen" aria-hidden="true" role="region" aria-label="Story Conclusion">
+      <div class="ending-content">
+        <span class="ending-badge" id="ending-badge">Historical Exploration Epilogue</span>
+        <h1 class="ending-title" id="ending-title">RED HORIZON — THE MARS CHRONICLES</h1>
+        <p class="ending-subtitle" id="ending-subtitle">The search for life continues.</p>
+        <div class="ending-actions">
+          <button class="hud-btn hud-btn-accent" id="btn-replay-final">↺ Replay Final Scene</button>
+          <button class="hud-btn hud-btn-primary" id="btn-ending-switch-story">🚀 Explore Other Story</button>
+          <button class="hud-btn" id="btn-restart-from-ending">Restart from Beginning</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/mars-story-data.js"></script>
+  <script src="js/moon-story-data.js"></script>
+  <script src="js/story-data.js"></script>
+  <script src="js/narration.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
