@@ -1042,16 +1042,41 @@ body.immersive-mode .immersive-exit-btn {
    ========================================================================== */
 @media (max-width: 900px) {
   /* ------------------------------------------------------------------------
-     1. Header Navigation System (2-Tier Compact Grid)
+     0. Mobile Scroll & Viewport Foundations
+     ------------------------------------------------------------------------ */
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    min-height: 100dvh;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .storybook-app {
+    min-height: 100%;
+    min-height: 100dvh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ------------------------------------------------------------------------
+     1. Header Navigation System (2-Tier Full-Control Grid)
      ------------------------------------------------------------------------ */
   .storybook-header {
     height: auto;
-    padding: calc(6px + env(safe-area-inset-top, 0px)) 10px 8px 10px;
+    padding: calc(6px + env(safe-area-inset-top, 0px)) 8px 8px 8px;
     display: grid;
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: auto 1fr auto auto auto;
     grid-template-rows: auto auto;
-    row-gap: 7px;
-    column-gap: 6px;
+    row-gap: 6px;
+    column-gap: 5px;
     align-items: center;
     background: rgba(8, 12, 22, 0.96);
     backdrop-filter: blur(16px);
@@ -1062,7 +1087,12 @@ body.immersive-mode .immersive-exit-btn {
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  /* Row 1, Column 1: Home / Story Gateway */
+  /* Flatten actions container to distribute children across the 2-tier header */
+  .header-actions {
+    display: contents;
+  }
+
+  /* Row 1, Col 1: Home / Story Gateway Selector */
   #btn-open-gateway {
     grid-column: 1;
     grid-row: 1;
@@ -1072,18 +1102,20 @@ body.immersive-mode .immersive-exit-btn {
     font-size: 1.15rem;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-subtle);
     display: flex;
     align-items: center;
     justify-content: center;
+    touch-action: manipulation;
   }
 
-  /* Row 1, Column 2: Story Switcher */
+  /* Row 1, Col 2: Brand / Story Switcher (Mars & Moon) */
   .brand-section {
     grid-column: 2;
     grid-row: 1;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     min-width: 0;
     overflow: hidden;
     justify-self: start;
@@ -1098,74 +1130,119 @@ body.immersive-mode .immersive-exit-btn {
     gap: 2px;
     min-width: 0;
     flex-shrink: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-full);
   }
 
   .story-pill {
-    padding: 4px 7px;
-    font-size: 0.72rem;
+    padding: 4px 8px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: var(--radius-full);
+    touch-action: manipulation;
   }
 
-  /* Flatten actions so children are direct grid items of the 2-tier header */
-  .header-actions {
-    display: contents;
-  }
-
-  /* Row 1, Column 3: Language Switcher */
-  .lang-switcher-control {
+  /* Row 1, Col 3: Hotspots Toggle */
+  #btn-toggle-hotspots {
     grid-column: 3;
     grid-row: 1;
-    height: 36px;
+    display: inline-flex !important;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 1.0rem;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    touch-action: manipulation;
+  }
+
+  #btn-toggle-hotspots.active {
+    background: rgba(246, 192, 67, 0.2);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold-bright);
+    box-shadow: 0 0 10px rgba(246, 192, 67, 0.35);
+  }
+
+  #btn-toggle-hotspots span:not(.pill-icon) {
+    display: none;
+  }
+
+  /* Row 1, Col 4: Language Selector (EN / Hindi) */
+  .lang-switcher-control {
+    grid-column: 4;
+    grid-row: 1;
+    height: 34px;
     padding: 2px;
     display: inline-flex;
     align-items: center;
     justify-self: end;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-full);
   }
 
   .lang-pill {
     padding: 4px 7px;
     font-size: 0.72rem;
+    font-weight: 600;
+    touch-action: manipulation;
   }
 
-  /* Row 1, Column 4: Permanently accessible, highlighted Settings button */
+  /* Row 1, Col 5: Reading & Audio Settings Modal */
   #btn-settings {
-    grid-column: 4;
+    grid-column: 5;
     grid-row: 1;
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    font-size: 1.15rem;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 1.1rem;
     border-radius: 50%;
-    background: rgba(246, 192, 67, 0.2);
+    background: rgba(246, 192, 67, 0.18);
     border: 1px solid rgba(246, 192, 67, 0.65);
     color: var(--primary-gold-bright);
-    box-shadow: 0 0 10px rgba(246, 192, 67, 0.3);
+    box-shadow: 0 0 8px rgba(246, 192, 67, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
     justify-self: end;
+    touch-action: manipulation;
   }
 
-  /* Row 2, Column 1: Chapters Menu Button */
+  /* Row 2, Col 1: Chapters & Timeline Map Menu */
   #btn-chapter-menu {
     grid-column: 1;
     grid-row: 2;
     height: 32px;
     padding: 0 8px;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 600;
     border-radius: var(--radius-full);
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
-    justify-content: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    touch-action: manipulation;
+    white-space: nowrap;
   }
 
-  /* Row 2, Column 2: Center Indicator */
+  #btn-chapter-menu .pill-icon {
+    font-size: 0.85rem;
+  }
+
+  /* Row 2, Col 2: Center Indicator (Tap also opens Chapters) */
   .center-indicator {
     grid-column: 2;
     grid-row: 2;
     width: 100%;
     margin: 0;
-    padding: 4px 10px;
+    padding: 4px 8px;
     min-height: 32px;
     display: flex;
     align-items: center;
@@ -1174,91 +1251,189 @@ body.immersive-mode .immersive-exit-btn {
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-full);
     cursor: pointer;
-    gap: 6px;
+    gap: 4px;
     overflow: hidden;
+    touch-action: manipulation;
   }
 
   .chapter-badge {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     white-space: nowrap;
     color: var(--primary-gold);
     font-weight: 700;
   }
 
   .indicator-divider {
-    font-size: 0.7rem;
-    opacity: 0.6;
+    font-size: 0.65rem;
+    opacity: 0.5;
   }
 
   .scene-name-badge {
-    font-size: 0.74rem;
-    max-width: 130px;
+    font-size: 0.7rem;
+    max-width: 120px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  /* Row 2, Column 3-4: Playback Mode (Auto / Manual) */
+  /* Row 2, Col 3: Immersive View Toggle */
+  #btn-toggle-immersive {
+    grid-column: 3;
+    grid-row: 2;
+    display: inline-flex !important;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    font-size: 1.0rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  #btn-toggle-immersive.active {
+    background: rgba(246, 192, 67, 0.2);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold-bright);
+    box-shadow: 0 0 8px rgba(246, 192, 67, 0.3);
+  }
+
+  /* Row 2, Col 4-5: Playback Mode (Auto / Manual) */
   .mode-switcher-control {
-    grid-column: 3 / 5;
+    grid-column: 4 / 6;
     grid-row: 2;
     justify-self: end;
     height: 32px;
     padding: 2px;
     display: inline-flex;
     align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-full);
   }
 
   .mode-pill {
-    padding: 3px 7px;
-    font-size: 0.72rem;
-  }
-
-  #btn-toggle-hotspots,
-  #btn-toggle-immersive {
-    display: none;
+    padding: 3px 6px;
+    font-size: 0.7rem;
+    touch-action: manipulation;
   }
 
   /* ------------------------------------------------------------------------
-     2. Stage Container & Illustration Viewport
+     2. Stage Container, Viewport & Upper Hotspots Visibility Fixes
      ------------------------------------------------------------------------ */
   .stage-container {
-    padding: 8px 10px 14px 10px;
+    padding: 8px 8px 12px 8px;
     width: 100%;
     max-width: 100%;
-    gap: 10px;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .illustration-viewport {
     width: 100%;
     max-width: 100%;
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
   }
 
+  /* Keep viewport info-bar unobtrusive so upper hotspots are NEVER blocked */
   .viewport-info-bar {
-    top: 8px;
+    top: 6px;
     left: 8px;
     right: 8px;
+    pointer-events: none;
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
   }
 
   .info-pill {
-    font-size: 0.7rem;
-    padding: 3px 8px;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    background: rgba(8, 12, 22, 0.75);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-full);
+    pointer-events: auto;
+  }
+
+  .video-audio-badge {
+    font-size: 0.66rem;
+    padding: 2px 7px;
+    min-height: 26px;
+    pointer-events: auto;
+    touch-action: manipulation;
   }
 
   .hotspots-hint-btn {
-    font-size: 0.72rem;
-    padding: 4px 8px;
+    font-size: 0.68rem;
+    padding: 3px 8px;
+    min-height: 28px;
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+
+  /* Hotspots Touch Size, Elevation & Smart Tooltip Positioning */
+  .hotspots-layer {
+    z-index: 16;
+  }
+
+  .hotspot-node {
+    z-index: 18;
+    touch-action: manipulation;
+  }
+
+  .hotspot-pin {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 1.15rem;
+    box-shadow: 0 0 12px var(--primary-gold-glow), 0 2px 8px rgba(0,0,0,0.85);
+  }
+
+  /* Smart flip: when upper hotspot (y < 36% or class tooltip-below), flip tooltip downward */
+  .hotspot-node.tooltip-below .hotspot-tooltip,
+  .hotspot-node[style*="top: 0"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 1"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 2"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 30%"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 31%"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 32%"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 33%"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 34%"] .hotspot-tooltip,
+  .hotspot-node[style*="top: 35%"] .hotspot-tooltip {
+    bottom: auto;
+    top: calc(100% + 8px);
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .hotspot-node.tooltip-left-edge .hotspot-tooltip {
+    left: 0;
+    transform: translateX(0);
+  }
+
+  .hotspot-node.tooltip-right-edge .hotspot-tooltip {
+    left: auto;
+    right: 0;
+    transform: translateX(0);
   }
 
   .viewport-subtitles-container {
-    bottom: 8px;
-    width: 94%;
+    bottom: 6px;
+    width: 95%;
   }
 
   .viewport-subtitles {
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 6px;
     line-height: 1.35;
   }
@@ -1267,16 +1442,16 @@ body.immersive-mode .immersive-exit-btn {
      3. Dialogue HUD & Controls
      ------------------------------------------------------------------------ */
   .dialogue-hud {
-    padding: 12px 14px calc(10px + env(safe-area-inset-bottom, 0px)) 14px;
+    padding: 10px 12px calc(8px + env(safe-area-inset-bottom, 0px)) 12px;
     width: 100%;
     max-width: 100%;
     margin-top: 2px;
-    border-radius: 16px;
-    gap: 10px;
+    border-radius: 14px;
+    gap: 8px;
   }
 
   .dialogue-header {
-    padding-bottom: 8px;
+    padding-bottom: 6px;
   }
 
   .speaker-avatar {
@@ -1286,80 +1461,71 @@ body.immersive-mode .immersive-exit-btn {
   }
 
   .speaker-name {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
   }
 
   .speaker-role-label {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
   }
 
   .passage-counter {
-    font-size: 0.74rem;
-    padding: 2px 7px;
+    font-size: 0.72rem;
+    padding: 2px 6px;
   }
 
   .dialogue-content {
-    min-height: 50px;
+    min-height: 46px;
   }
 
   .dialogue-quote {
-    font-size: 1.0rem;
-    line-height: 1.48;
+    font-size: 0.96rem;
+    line-height: 1.45;
     word-break: break-word;
   }
 
-  /* Dialogue Controls Footer */
+  /* Controls Footer */
   .dialogue-footer {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding-top: 10px;
+    gap: 6px;
+    padding-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  /* Primary Passage Navigation Row */
+  /* Passage Step & Narration (Row 1) */
   .hud-center-controls {
     display: grid;
     grid-template-columns: 1fr 1.35fr 1fr;
     grid-template-rows: auto auto;
-    gap: 8px 6px;
+    gap: 6px;
     width: 100%;
     order: 1;
   }
 
-  #btn-prev-passage {
-    grid-column: 1;
+  #btn-prev-passage,
+  #btn-next-passage {
     grid-row: 1;
-    min-height: 44px;
+    min-height: 42px;
     justify-content: center;
     padding: 0 6px;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
     font-weight: 600;
     border-radius: var(--radius-md);
+    touch-action: manipulation;
   }
 
   #btn-narration {
     grid-column: 2;
     grid-row: 1;
-    min-height: 44px;
+    min-height: 42px;
     justify-content: center;
-    padding: 0 8px;
-    font-size: 0.86rem;
+    padding: 0 6px;
+    font-size: 0.84rem;
     font-weight: 700;
     border-radius: var(--radius-md);
     background: var(--primary-gold);
     color: #080c16;
-  }
-
-  #btn-next-passage {
-    grid-column: 3;
-    grid-row: 1;
-    min-height: 44px;
-    justify-content: center;
-    padding: 0 6px;
-    font-size: 0.84rem;
-    font-weight: 600;
-    border-radius: var(--radius-md);
+    touch-action: manipulation;
   }
 
   .hud-speed-wrapper {
@@ -1367,28 +1533,32 @@ body.immersive-mode .immersive-exit-btn {
     grid-row: 2;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.74rem;
+    gap: 5px;
+    font-size: 0.72rem;
   }
 
   .hud-speed-wrapper select {
-    min-height: 32px;
+    min-height: 36px;
+    font-size: 0.78rem;
+    flex: 1;
+    padding: 0 6px;
   }
 
   #btn-toggle-subtitles {
     grid-column: 3;
     grid-row: 2;
     justify-self: end;
-    min-height: 34px;
+    min-height: 36px;
     min-width: 44px;
     justify-content: center;
+    touch-action: manipulation;
   }
 
-  /* Secondary Scene Navigation Row */
+  /* Secondary Scene Navigation (Row 2) */
   .dialogue-footer > .hud-group:first-child {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
     order: 2;
   }
@@ -1396,12 +1566,13 @@ body.immersive-mode .immersive-exit-btn {
   #btn-prev-scene,
   #btn-next-scene {
     flex: 1;
-    min-height: 38px;
+    min-height: 36px;
     justify-content: center;
     padding: 0 8px;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
     border-radius: var(--radius-md);
+    touch-action: manipulation;
   }
 
   .keyboard-legend-bar {
@@ -1409,21 +1580,61 @@ body.immersive-mode .immersive-exit-btn {
   }
 
   /* ------------------------------------------------------------------------
-     4. Modals as Mobile Bottom Sheets
+     4. Immersive View Mobile Adaptation
+     ------------------------------------------------------------------------ */
+  body.immersive-mode .storybook-header {
+    transform: translateY(-100%);
+  }
+
+  body.immersive-mode .dialogue-hud {
+    opacity: 0.25;
+    transition: opacity 0.3s ease;
+  }
+
+  body.immersive-mode .dialogue-hud:active,
+  body.immersive-mode .dialogue-hud:focus-within {
+    opacity: 1;
+  }
+
+  .immersive-exit-btn {
+    top: calc(10px + env(safe-area-inset-top, 0px)) !important;
+    right: 10px !important;
+    z-index: 120;
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(8, 12, 22, 0.94);
+    border: 1.5px solid var(--primary-gold);
+    color: var(--primary-gold-bright);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+  }
+
+  body.immersive-mode .immersive-exit-btn {
+    display: inline-flex !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     5. Modals as Responsive Bottom Sheets (Chapter Map, Settings, Dossier)
      ------------------------------------------------------------------------ */
   .modal-backdrop {
     padding: 0;
     align-items: flex-end;
+    z-index: 1000;
   }
 
   .modal-card {
     max-width: 100% !important;
     width: 100% !important;
-    max-height: 88vh !important;
+    max-height: 90dvh !important;
     border-radius: 20px 20px 0 0 !important;
     border-bottom: none !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden !important;
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: var(--bg-surface-elevated, #0d1322);
   }
 
   .modal-backdrop.open .modal-card {
@@ -1433,139 +1644,216 @@ body.immersive-mode .immersive-exit-btn {
   .modal-card::before {
     content: '';
     display: block;
-    width: 40px;
+    width: 44px;
     height: 5px;
     background: rgba(255, 255, 255, 0.28);
     border-radius: 999px;
-    margin: 10px auto 2px auto;
+    margin: 10px auto 4px auto;
     flex-shrink: 0;
   }
 
   .modal-header {
-    padding: 12px 18px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--bg-surface);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(13, 19, 34, 0.98);
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
   }
 
   .modal-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
 
   .modal-close-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    touch-action: manipulation;
   }
 
   .modal-body {
-    padding: 14px 18px;
-    gap: 14px;
+    flex: 1;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
+    padding: 14px 16px 20px 16px;
+    gap: 12px;
   }
 
   .modal-footer {
-    padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px)) 18px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)) 16px;
+    background: rgba(8, 12, 22, 0.98);
+    border-top: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 0.74rem;
   }
 
-  /* Setting Rows in Mobile Sheet */
-  .setting-row {
-    padding-bottom: 12px;
+  /* Chapter Navigator Drawer Specifics */
+  .chapter-list {
     gap: 10px;
   }
 
-  #setting-row-voice {
-    flex-direction: column;
-    align-items: flex-start;
+  .chapter-item-card {
+    padding: 12px 14px;
+    border-radius: 12px;
   }
 
-  #setting-row-voice .setting-control-group {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin-top: 6px;
-  }
-
-  #voice-select {
-    width: 100%;
-    min-height: 42px;
-    font-size: 0.85rem;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   5. Narrow Mobile Devices (<= 600px)
-   -------------------------------------------------------------------------- */
-@media (max-width: 600px) {
-  .nav-pill-btn span:not(.pill-icon) {
-    display: none;
-  }
-
-  #btn-chapter-menu {
-    padding: 0 9px;
-    min-width: 36px;
-  }
-
-  .dialogue-quote {
+  .chapter-card-title {
     font-size: 0.98rem;
   }
+
+  .chapter-card-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .chapter-card-desc {
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  /* Settings Modal Specifics on Mobile */
+  .settings-grid {
+    gap: 14px;
+  }
+
+  .setting-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .setting-row:has(.toggle-switch) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .setting-label-group {
+    max-width: calc(100% - 60px);
+  }
+
+  .setting-row select,
+  .setting-row .lang-switcher-control {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .setting-row select {
+    min-height: 44px;
+    font-size: 0.88rem;
+    padding: 0 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .toggle-switch {
+    min-width: 48px;
+    min-height: 28px;
+  }
+
+  .toggle-knob {
+    width: 22px;
+    height: 22px;
+  }
+
+  .toggle-switch.active .toggle-knob {
+    transform: translateX(20px);
+  }
 }
 
 /* --------------------------------------------------------------------------
-   6. Extra-Narrow Mobile Devices (<= 360px) & Short Portrait Screens
+   5. Narrow Mobile Devices (<= 600px) & Extra-Narrow (<= 360px)
    -------------------------------------------------------------------------- */
-@media (max-width: 360px) {
-  .main-title {
+@media (max-width: 600px) {
+  #btn-chapter-menu span:not(.pill-icon) {
+    display: inline;
+  }
+}
+
+@media (max-width: 400px) {
+  #btn-chapter-menu span:not(.pill-icon) {
     display: none;
   }
-  .story-pill {
-    max-width: 34px;
-    padding: 3px 6px;
-    font-size: 0.72rem;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .lang-switcher-control {
-    padding: 1px;
-  }
-  .lang-pill {
-    padding: 2px 5px;
-    font-size: 0.65rem;
-  }
-  #btn-open-gateway,
-  #btn-settings {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    font-size: 1.05rem;
-  }
   #btn-chapter-menu {
-    height: 30px;
     padding: 0 6px;
-    font-size: 0.72rem;
+    min-width: 32px;
   }
   .scene-name-badge {
-    max-width: 90px;
+    max-width: 80px;
   }
-  .mode-pill {
-    padding: 2px 5px;
+}
+
+@media (max-width: 360px) {
+  .storybook-header {
+    padding: calc(4px + env(safe-area-inset-top, 0px)) 5px 6px 5px;
+    column-gap: 3px;
+    row-gap: 5px;
+  }
+
+  #btn-open-gateway,
+  #btn-settings {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 1.0rem;
+  }
+
+  .story-pill {
+    padding: 3px 5px;
     font-size: 0.68rem;
   }
-  .storybook-header {
-    padding: calc(4px + env(safe-area-inset-top, 0px)) 6px 6px 6px;
-    column-gap: 4px;
-    row-gap: 5px;
+
+  .lang-pill {
+    padding: 2px 4px;
+    font-size: 0.65rem;
+  }
+
+  #btn-toggle-hotspots,
+  #btn-toggle-immersive {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 0.9rem;
+  }
+
+  #btn-chapter-menu {
+    height: 28px;
+    min-width: 28px;
+    padding: 0 4px;
+  }
+
+  .mode-pill {
+    padding: 2px 4px;
+    font-size: 0.65rem;
+  }
+
+  .chapter-badge {
+    font-size: 0.65rem;
+  }
+
+  .scene-name-badge {
+    max-width: 65px;
+    font-size: 0.65rem;
   }
 }
 
 @media (max-width: 600px) and (max-height: 700px) {
   .stage-container {
-    padding: 4px 8px 8px 8px;
+    padding: 4px 6px 6px 6px;
     gap: 6px;
   }
   .illustration-viewport {
-    max-height: 32vh;
+    max-height: 30vh;
   }
   .dialogue-hud {
     padding: 8px 10px calc(6px + env(safe-area-inset-bottom, 0px)) 10px;
@@ -1575,7 +1863,7 @@ body.immersive-mode .immersive-exit-btn {
     min-height: 38px;
   }
   .dialogue-quote {
-    font-size: 0.92rem;
+    font-size: 0.90rem;
     line-height: 1.4;
   }
   .hud-center-controls #btn-prev-passage,
@@ -2146,14 +2434,40 @@ body.theme-moon {
 
 /* Responsive Gateway */
 @media (max-width: 860px) {
+  .story-gateway {
+    min-height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gw-inner {
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 12px calc(24px + env(safe-area-inset-bottom, 0px)) 12px;
+    gap: 12px;
+  }
+  .gw-title {
+    font-size: clamp(1.4rem, 6vw, 2.0rem);
+  }
   .story-pick {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
   .story-card {
-    min-height: 170px;
+    min-height: 125px;
+    border-radius: 14px;
+  }
+  .card-body {
+    padding: 12px 14px;
+  }
+  .card-title {
+    font-size: 1.15rem;
+  }
+  .card-desc {
+    font-size: 0.78rem;
+    line-height: 1.35;
   }
   .setup {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px 12px;
   }
   .setup-hint {
     min-height: 0;
@@ -2161,12 +2475,22 @@ body.theme-moon {
   .begin-row {
     position: sticky;
     bottom: 0;
-    z-index: 6;
-    padding: 14px 0 calc(10px + env(safe-area-inset-bottom, 0px));
+    z-index: 10;
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
     background: linear-gradient(180deg, rgba(5, 7, 13, 0), #05070d 38%);
   }
   .btn-begin {
+    min-height: 48px;
+    font-size: 1.0rem;
+    border-radius: 12px;
     width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .setup {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
 

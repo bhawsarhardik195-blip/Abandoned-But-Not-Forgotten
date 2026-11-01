@@ -1045,6 +1045,16 @@
       btn.style.top = `${spot.y || 45}%`;
       btn.title = spot.title;
 
+      // Smart positioning for mobile & upper/edge hotspots to prevent clipping
+      if ((spot.y || 45) < 36) {
+        btn.classList.add('tooltip-below');
+      }
+      if ((spot.x || 50) < 22) {
+        btn.classList.add('tooltip-left-edge');
+      } else if ((spot.x || 50) > 78) {
+        btn.classList.add('tooltip-right-edge');
+      }
+
       btn.innerHTML = `
         <div class="hotspot-pin">
           <span>+</span>
