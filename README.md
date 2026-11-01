@@ -1,182 +1,170 @@
-# ABANDONED, BUT NOT FORGOTTEN & RED HORIZON
-### Unified Interactive Historical Space Exploration Storybook (Mars + Moon)
+# 🌌 ABANDONED, BUT NOT FORGOTTEN
+### Unified Interactive Historical Space Exploration Showcase (Mars & Moon)
 
 [![Status: Production Ready](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](#)
-[![Hosting: Cloudflare Pages / GitHub Pages](https://img.shields.io/badge/Hosting-Cloudflare%20Pages%20%7C%20GitHub%20Pages-blue.svg)](#)
-[![License: Open Source Code / Separate Media Terms](https://img.shields.io/badge/License-Dual%20Attribution-informational.svg)](#licensing-and-intellectual-property)
-[![Zero External Dependencies](https://img.shields.io/badge/Dependencies-0%20(Pure%20Vanilla%20Web)-brightgreen.svg)](#technology-stack)
-
-**Abandoned, But Not Forgotten** & **Red Horizon: The Mars Chronicles** is an interactive, historically grounded, dual-experience space exploration storybook. It presents the technical feats, human emotions, hardware challenges, and scientific discoveries of humanity's lunar and Martian exploration missions across the 20th and 21st centuries.
-
-Built entirely with standard vanilla web technologies (HTML5, CSS3, Vanilla JavaScript ES6+), it executes 100% client-side in modern web browsers without requiring external frameworks, third-party CDNs, database backends, paid API keys, build steps, or subscriptions.
+[![Deployment: Cloudflare Pages](https://img.shields.io/badge/Deployment-Cloudflare%20Pages%20%2F%20Edge%20CDN-F38020?logo=cloudflare&logoColor=white)](#)
+[![Technologies: Pure Vanilla Web](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20ES6%2B-F7DF1E?logo=javascript&logoColor=black)](#technologies-used)
+[![Dependencies: Zero](https://img.shields.io/badge/Dependencies-0%20(Pure%20Vanilla%20Web)-brightgreen.svg)](#technologies-used)
+[![Narration: Bilingual Speech Synthesis](https://img.shields.io/badge/Narration-English%20%7C%20%E0%A4%B9%E0%A4%BF%E0%A4%A8%E0%A5%8D%E0%A4%A6%E0%A5%80-orange.svg)](#english-and-hindi-narration)
+[![License: Dual Attribution](https://img.shields.io/badge/License-MIT%20Code%20%2F%20Attribution-informational.svg)](#licensing-and-intellectual-property)
 
 ---
 
-## 📖 Table of Contents
-1. [Project Overview & Key Features](#-project-overview--key-features)
-2. [Dual Story Experiences (Mars & Moon)](#-dual-story-experiences-mars--moon)
-3. [Folder & File Structure](#-folder--file-structure)
-4. [How to Run the Website Locally](#-how-to-run-the-website-locally)
-5. [How to Deploy to Cloudflare Pages (Recommended)](#-how-to-deploy-to-cloudflare-pages-recommended)
-6. [How to Deploy to GitHub Pages](#-how-to-deploy-to-github-pages)
-7. [AI-Generated Media Disclosure & Transparency](#-ai-generated-media-disclosure--transparency)
-8. [Historical & Scientific Mission Sources](#-historical--scientific-mission-sources)
-9. [Technology Stack & System Requirements](#-technology-stack--system-requirements)
-10. [Licensing & Intellectual Property](#-licensing--intellectual-property)
+## 🌟 Introduction
+
+**Abandoned, But Not Forgotten** (alongside **Red Horizon: The Mars Chronicles**) is an interactive, historically grounded, dual-experience space exploration web project. It chronicles humanity’s greatest exploratory quests across the 20th and 21st centuries—capturing the bold technical achievements, hardware challenges, scientific discoveries, and quiet solitude of the robotic emissaries and lunar equipment left behind on distant worlds.
+
+Built entirely with standard vanilla web technologies, the project executes 100% client-side in modern web browsers without external framework overhead, third-party runtime bundles, database latency, or paid API keys.
 
 ---
 
-## 🌌 Project Overview & Key Features
+## 📸 Main Interface
 
-* **Cinematic Opening Gateway:** Welcomes readers with an interactive story selection interface, allowing one-click selection of either Mars or the Moon, preferred language (English or Hindi), and reading mode.
-* **Dual-Language Client-Side Narration:**
-  * **English (EN):** Natural, articulate spoken delivery with balanced acoustic pitch and rhythm.
-  * **Hindi (हिन्दी):** Fluent, grammatically accurate translations incorporating formal scientific and space terminology (e.g., सैटर्न V, अपोलो 11, मंगलयान, रोवर, लैंडर).
-* **Narration Voice Pack Selector:** Browse and select from all natural voices installed on your system/browser (e.g., Microsoft Natural voices on Edge/Windows, Google voices on Chrome, Apple voices on Safari).
-* **Continuous Automatic & Manual Modes:**
-  * **Auto Mode:** Automatically sequences through passages, synchronized videos, and scenes continuously.
-  * **Manual Mode:** Gives readers full control to inspect artwork, reread dialogue, and explore interactive dossiers at their own pace.
-* **Intelligent Audio & Video Synchronization:**
-  * Clips with authentic mission audio automatically pause text-to-speech synthesis and display an on-screen audio status badge (`🔊 Original Video Audio Playing`).
-  * Clips categorized for narration overlay allow spoken narration to continue playing over the video.
-* **Synchronized Bilingual Subtitles:** Real-time captioning overlay synchronized with spoken narration, with user-selectable font sizing (Small, Medium, Large, Extra Large) in Settings.
-* **Educational Hotspot Dossiers:** Interactive points of interest overlaid onto artwork revealing mechanical schematics, mission telemetry, and historical context.
-* **Independent State Persistence:** Preserves user chapter progress, audio rate, subtitle size, narrator voice, and language preference independently in browser `localStorage`.
+![Abandoned, But Not Forgotten - Gateway Interface](screenshots/01-homepage.png)
+
+*Figure 1: The Cinematic Story Gateway, offering one-click mission dispatch between the Martian Chronicles and Lunar expeditions, alongside real-time language and playback selection.*
 
 ---
 
-## 🚀 Dual Story Experiences (Mars & Moon)
+## 📖 Project Overview
 
-### Story 1: Red Horizon — The Mars Chronicles
-* **Subtitle:** *From First Attempts to the Search for Ancient Life*
-* **Historical Scope:** 1960 to the present day.
-* **Structure:** 6 Chronological Chapters + Epilogue (*The Footprints We Leave Behind*):
-  1. **Chapter 1: The Blind Leap** (Soviet Mars Probes | 1960–1965)
-  2. **Chapter 2: Touchdown on the Red Planet** (Viking 1 & Viking 2 | 1976–1982)
-  3. **Chapter 3: Wheels on Dust** (Sojourner, Spirit & Opportunity | 1997–2019)
-  4. **Chapter 4: The Climate Detectives** (Phoenix & InSight | 2008–2022)
-  5. **Chapter 5: India's Orbital Triumph** (Mangalyaan: Mars Orbiter Mission | 2013–2022)
-  6. **Chapter 6: The Modern Frontier** (Curiosity, Perseverance & Ingenuity | 2012–2026)
-  7. **Epilogue:** *The Footprints We Leave Behind*
-* **Metrics:** 37 Scenes, 218 Passages, 18 Video Animations, 37 Interactive Dossiers.
+Human space exploration is marked not only by triumphs in human flight, but by hundreds of silent mechanical explorers—orbiters, landers, rovers, and experiment packages—that remain where their journeys ended. 
 
-### Story 2: Abandoned, But Not Forgotten (The Moon Story)
-* **Subtitle:** *The Stories of Humanity's Forgotten Space Equipment*
-* **Historical Scope:** 1960s Apollo era through modern Artemis and international lunar science.
-* **Structure:** 7 Chronological Chapters + Final Scene (*A Small Blue World*):
-  1. **Chapter 1: The Apollo Tests** (Before the Moon Became a Destination)
-  2. **Chapter 2: The First Footprints** (Apollo 11)
-  3. **Chapter 3: Exploring the Surface** (Apollo 14 & Apollo 15)
-  4. **Chapter 4: Beyond the Landings** (Apollo Lunar Surface Experiments Package ALSEP | 1969–1977)
-  5. **Chapter 5: Orbiting Echoes** (Lunar Reconnaissance Orbiter | 2009–present)
-  6. **Chapter 6: The Modern Frontier** (Artemis & International Lunar Exploration)
-  7. **Chapter 7: Legacy Left Behind** (From Apollo 11 to the Future)
-  8. **Final Scene:** *A Small Blue World*
-* **Metrics:** 45 Scenes, 268 Passages, 24 Video Animations, 45 Interactive Dossiers.
+This interactive project merges deep historical research with cinematic storytelling:
+- **Two Complete Story Expeditions:** Explore the red deserts of Mars or the dusty regolith of the Moon.
+- **Historically Grounded Technical Dossiers:** Over 82 interactive hotspots revealing mechanical schematics, telemetry data, and authentic mission outcomes.
+- **Adaptive Dual-Language Audio Narration:** Full spoken voice synthesis in both **English** and **Hindi**, calibrated dynamically using browser-native speech synthesis.
+- **Responsive Dual-Form Factor UI:** Tailored desktop widescreen immersion paired with a dedicated mobile-optimized touch interface.
 
 ---
 
-## 📁 Folder & File Structure
+## 🔴 The Mars Experience: *Red Horizon — The Mars Chronicles*
 
-This folder (`UPLOADING`) represents the standalone, public-ready production website:
+> *"From First Attempts to the Search for Ancient Life"*
 
-```text
-UPLOADING/
-│
-├── index.html                     # MAIN ENTRY POINT: Launches the entire website
-├── README.md                      # This beginner-friendly deployment and user guide
-├── .gitignore                     # Git ignore rules for system artifacts
-├── .nojekyll                      # Disables Jekyll processing on GitHub Pages
-├── _headers                       # Cloudflare Pages caching and security headers
-│
-├── css/
-│   └── style.css                  # Responsive design, themes, animations, layouts
-│
-├── js/
-│   ├── app.js                     # Main application controller, UI, HUD, state persistence
-│   ├── narration.js               # Web Speech API speech synthesis & voice pack calibration
-│   ├── mars-story-data.js         # Complete Mars story script, passages, media & dossiers
-│   ├── moon-story-data.js         # Complete Moon story script, passages, media & dossiers
-│   └── story-data.js              # Runtime story data bridge
-│
-└── assets/
-    └── images/
-        ├── mars images/           # All 239 Mars illustrations and MP4 animations
-        └── moon images/           # All 287 Moon illustrations and MP4 animations
+Spanning from 1960 to the present day, **Red Horizon** traces the grueling trial-and-error path humanity walked to conquer interplanetary communication, entry, descent, and surface rover science.
+
+```
+1960 ──────────────► 1976 ──────────────► 1997 ──────────────► 2008 ──────────────► 2013 ──────────────► 2021+
+Soviet Probes       Viking 1 & 2        Pathfinder / MER     Phoenix / InSight   MOM (Mangalyaan)    Perseverance & Ingenuity
 ```
 
----
+### Chronological Chapters:
+1. **Chapter 1: The Blind Leap (1960–1965)** — Early Soviet Mars probes (Mars 1, Zond 2) and the brutal odds of early interplanetary trajectories.
+2. **Chapter 2: Touchdown on the Red Planet (1976–1982)** — Viking 1 & Viking 2 landers, biological soil tests, and the first color panoramas of Martian plains.
+3. **Chapter 3: Wheels on Dust (1997–2019)** — The rover revolution: Sojourner's pathfinding, Spirit's persistence, and Opportunity's marathon across Meridiani Planum.
+4. **Chapter 4: The Climate Detectives (2008–2022)** — Phoenix digging into arctic permafrost and InSight listening to the interior pulse of marsquakes.
+5. **Chapter 5: India's Orbital Triumph (2013–2022)** — Mangalyaan (Mars Orbiter Mission / MOM), executed on an unprecedented budget with flawless orbital capture.
+6. **Chapter 6: The Modern Frontier (2012–2026)** — Curiosity and Perseverance drilling ancient river deltas, paired with Ingenuity's historic aerodynamic flights.
+7. **Epilogue:** *The Footprints We Leave Behind* — A philosophical reflection on the machines resting forever in the red dust.
 
-## 🖥️ How to Run the Website Locally
-
-Because this website is 100% static, you do not need complex web servers or package managers. Simply serve the folder using any local HTTP server:
-
-### Option 1: Using Python (Recommended — Pre-installed on most systems)
-1. Open your terminal or command prompt in this folder (`UPLOADING`).
-2. Run:
-   ```bash
-   python -m http.server 8080
-   ```
-3. Open your browser and navigate to:
-   ```text
-   http://localhost:8080
-   ```
-
-### Option 2: Using Node.js (npx serve)
-1. Open your terminal in this folder (`UPLOADING`).
-2. Run:
-   ```bash
-   npx serve .
-   ```
-3. Open the URL shown in your terminal (usually `http://localhost:3000`).
-
-### Option 3: Using VS Code Live Server
-1. Open the `UPLOADING` folder in VS Code.
-2. Install the **Live Server** extension by Ritwick Dey.
-3. Right-click `index.html` and click **"Open with Live Server"**.
+* **Metrics:** 37 Scenes · 218 Passages · 18 Video Animations · 37 Interactive Dossiers
 
 ---
 
-## ☁️ How to Deploy to Cloudflare Pages (Recommended)
+## 🌕 The Moon Experience: *Abandoned, But Not Forgotten*
 
-Cloudflare Pages provides free hosting with unlimited bandwidth and edge CDN distribution.
+> *"The Stories of Humanity's Forgotten Space Equipment"*
 
-### Step-by-Step Instructions:
-1. **Push your code to GitHub:**
-   - Create a new repository on GitHub (e.g., `space-exploration-storybook`).
-   - Upload the files from inside this `UPLOADING` folder to the repository root.
-   - Commit and push to `main`.
-2. **Log in to Cloudflare:**
-   - Go to [dash.cloudflare.com](https://dash.cloudflare.com/) and sign in.
-   - In the left sidebar, click **Compute (Workers & Pages)** > **Pages**.
-3. **Connect to GitHub:**
-   - Click **Create application** > **Pages** > **Connect to Git**.
-   - Select your GitHub repository.
-4. **Configure Deployment Settings:**
-   * **Framework preset:** `None`
-   * **Build command:** *(Leave completely blank)*
-   * **Build output directory:** `.` (or `/` — project root)
-   * **Root directory:** `/`
-   * **Environment variables:** *None required*
-5. **Deploy:**
-   - Click **Save and Deploy**.
-   - In about 30 seconds, your site will be live at a free `*.pages.dev` domain!
+Covering the 1960s Apollo era through modern Artemis international exploration, this story explores the hardware, seismometers, rovers, and descent stages that forever remain on the Moon.
+
+```
+1968 ──────────────► 1969 ──────────────► 1971 ──────────────► 1972 ──────────────► 2009 ──────────────► 2024+
+Apollo Tests        Apollo 11 Landing   Apollo 14 & 15       Apollo 17 / ALSEP   LRO Mapping         Artemis & Commercial Moon
+```
+
+### Chronological Chapters:
+1. **Chapter 1: The Apollo Tests** — Preparing Saturn V, the Lunar Module, and circumlunar qualification before landing was possible.
+2. **Chapter 2: The First Footprints (Apollo 11)** — Eagle's descent to the Sea of Tranquility, Armstrong and Aldrin's surface timeline, and the silent descent stage left behind.
+3. **Chapter 3: Exploring the Surface (Apollo 14 & Apollo 15)** — Fra Mauro highlands, the first Lunar Roving Vehicle traversing Hadley Rille, and core drillings.
+4. **Chapter 4: Beyond the Landings (ALSEP 1969–1977)** — The Apollo Lunar Surface Experiments Package: nuclear-powered science stations transmitting data long after crews departed.
+5. **Chapter 5: Orbiting Echoes (LRO 2009–present)** — The Lunar Reconnaissance Orbiter photographing rover tracks and descent stages from lunar orbit.
+6. **Chapter 6: The Modern Frontier (Artemis & International Science)** — Commercial Lunar Payload Services (CLPS), Chandrayaan, SLIM, and the Artemis lunar infrastructure.
+7. **Chapter 7: Legacy Left Behind** — The archeological preservation of historic lunar landing sites and our future on the Moon.
+8. **Final Scene:** *A Small Blue World* — Gazing back at Earth from the silence of the lunar surface.
+
+* **Metrics:** 45 Scenes · 268 Passages · 24 Video Animations · 45 Interactive Dossiers
 
 ---
 
-## 🐙 How to Deploy to GitHub Pages
+## 🎮 Key Features & Interactive Storytelling
 
-GitHub Pages is also completely free and hosted directly from your GitHub repository.
+* **Cinematic Stage Viewport:** Dynamic Ken Burns panning effects, atmospheric vignette overlays, and smooth scene cross-fades.
+* **Synchronized Bilingual Subtitles:** Real-time caption overlays matched with spoken narration, configurable in size (Compact, Standard, Large, Extra-Large).
+* **Interactive Educational Hotspots:** Clickable targets overlaid on artwork that open detailed technical dossiers covering spacecraft architecture, historical context, and engineering solutions.
+* **Dual Playback Modes:**
+  * **Automatic Mode:** Advances continuously through passages, video sequences, and scenes for a hands-free documentary experience.
+  * **Manual Mode:** Provides step-by-step navigation for readers desiring slow inspection of dialogue, imagery, and hotspots.
+* **Intelligent Audio Arbitration:**
+  * Authentic mission audio clips automatically pause synthetic speech and present an active audio badge (`🔊 Original Video Audio Playing`).
+  * Seamless return to voice synthesis upon completion of video audio clips.
+* **Zero Latency State Persistence:** User chapter progression, speech rate, preferred language, voice pack, and subtitle scale are saved locally in browser `localStorage`.
+* **Keyboard Navigation Support:**
+  * `←` / `→` : Previous / Next passage
+  * `Space` : Play / pause narration
+  * `A` : Toggle Automatic / Manual mode
+  * `H` : Toggle interactive hotspots
+  * `L` : Switch language (English / Hindi)
+  * `I` : Immersive fullscreen stage view
+  * `Esc` : Close active modals or exit immersive mode
 
-### Step-by-Step Instructions:
-1. Push all files inside `UPLOADING` to your GitHub repository `main` branch.
-2. In your GitHub repository, click on **Settings** (top tab bar).
-3. In the left navigation, click **Pages**.
-4. Under **Build and deployment** > **Source**, choose **Deploy from a branch**.
-5. Under **Branch**, select `main` and folder `/(root)`, then click **Save**.
-6. Wait 1–2 minutes. GitHub Pages will display your published URL (e.g., `https://<username>.github.io/<repository-name>/`).
+---
 
-> **Note:** The `.nojekyll` file included in this directory ensures GitHub Pages serves all assets and folders without ignoring files with spaces or special characters.
+## 🎙️ English and Hindi Narration
+
+The project integrates browser-native **W3C Web Speech API (`window.speechSynthesis`)** with custom acoustic calibration:
+
+* **English Delivery (EN):** Articulate, documentary-grade pacing optimized for scientific terminology and mission transcripts.
+* **Hindi Delivery (हिन्दी):** Formal, grammatically authentic Hindi translations incorporating recognized space terminology (e.g., सैटर्न V, अपोलो 11, मंगलयान, लूनर रोवर, लैंडर).
+* **Voice Pack Calibration:** Dynamically parses all installed client voice synthesis engines (Microsoft Natural Voices on Edge/Windows, Google TTS voices on Chrome, Apple voices on Safari) allowing readers to select their preferred narrator.
+
+---
+
+## 💻 Technologies Used
+
+Built strictly adhering to progressive enhancement and standard vanilla web architectures:
+
+| Layer | Implementation | Notes |
+| :--- | :--- | :--- |
+| **Markup & Semantics** | HTML5 Semantic Architecture | Accessible ARIA landmarks, modal dialogs, accessible forms |
+| **Styling & Effects** | Vanilla CSS3 | Custom CSS variables, Flexbox, CSS Grid, Ken Burns keyframes, responsive typography |
+| **Application Logic** | Vanilla JavaScript (ES6+) | Object-oriented state controller, event delegation, zero external frameworks |
+| **Speech Engine** | W3C Web Speech API | Client-side synthesis, dynamic voice matching, pitch/rate controls |
+| **Edge Hosting** | Cloudflare Pages | Global edge caching, automated Git deployments, zero server compute overhead |
+| **Security & Headers** | `_headers` Config | Content-Type sniffing protection, SameOrigin framing, strict referrer policies |
+| **Dependencies** | **0 NPM packages · 0 CDN bundles** | 100% self-contained code base running with zero third-party scripts |
+
+---
+
+## 🖼️ Screenshots Gallery
+
+### 1. Story Gateway & Mission Selection
+![Story Gateway](screenshots/01-homepage.png)
+*Readers select their mission, language, and playback mode from the introductory launch screen.*
+
+### 2. Mars Exploration Interface
+![Mars Interface](screenshots/02-mars-interface.png)
+*Mars Stage layout displaying high-resolution illustration, interactive hotspots, speaker attribution, and passage dialogue HUD.*
+
+### 3. Moon Exploration Interface
+![Moon Interface](screenshots/03-moon-interface.png)
+*Lunar mission view featuring Apollo 11 historical reflection, specialized lunar color scheme, and synchronized subtitles.*
+
+### 4. Chronological Chapter Navigation
+![Chapter Navigation](screenshots/04-chapter-navigation.png)
+*Interactive timeline map enabling instant exploration across all chronological mission chapters.*
+
+### 5. Reading & Audio Settings
+![Reading & Audio Settings](screenshots/05-narration-settings.png)
+*Comprehensive configuration dialog for voice selection, playback speed (0.5× to 2.0×), narration language, and typography scale.*
+
+### 6. Dedicated Mobile Experience
+<p align="center">
+  <img src="screenshots/06-mobile-interface.png" alt="Mobile Interface" width="400">
+</p>
+<p align="center">
+  <em>Dedicated touch-optimized mobile interface engineered specifically for smaller portrait viewports.</em>
+</p>
 
 ---
 
@@ -194,7 +182,8 @@ All visual illustrations and animated video clips featured in this project were 
 
 ## 📚 Historical & Scientific Mission Sources
 
-The educational narrative, mission timelines, technical dossiers, and equipment descriptions in this project were developed using publicly available historical mission archives and open scientific documentation, including:
+The educational narrative, mission timelines, technical dossiers, and equipment descriptions in this project were developed using publicly available historical mission archives and open scientific documentation:
+
 1. **NASA Apollo Lunar Surface Journal (ALSJ):** Mission transcripts, EVA logs, and ALSEP deployment data ([history.nasa.gov/alsj](https://history.nasa.gov/alsj/)).
 2. **NASA Mars Exploration Program:** Scientific mission archives for Viking 1 & 2, Pathfinder, Spirit & Opportunity, Phoenix, InSight, Curiosity, and Perseverance ([mars.nasa.gov](https://mars.nasa.gov/)).
 3. **NASA Lunar Reconnaissance Orbiter (LRO):** Surface documentation of Apollo landing sites ([lunar.gsfc.nasa.gov](https://lunar.gsfc.nasa.gov/)).
@@ -203,19 +192,16 @@ The educational narrative, mission timelines, technical dossiers, and equipment 
 
 ---
 
-## 💻 Technology Stack & System Requirements
+## 👏 Credits & Acknowledgements
 
-* **Markup & Semantics:** HTML5 (semantic layout, ARIA accessibility landmarks, custom dialogs).
-* **Styling & Presentation:** Vanilla CSS3 (CSS Variables, Flexbox, CSS Grid, Ken Burns animation effects, responsive typography).
-* **Application Architecture:** Vanilla JavaScript ES6+ (modular design, state preservation in `localStorage`).
-* **Speech Synthesis Engine:** Standard W3C Web Speech API (`window.speechSynthesis`).
-* **External Dependencies:** **0 npm packages, 0 CDN bundles, 0 external trackers.**
-* **Server Requirements:** Pure static web host (no Node.js, Python, PHP, or database required in production).
-* **Browser Compatibility:** Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari (desktop and mobile).
+* **Creator & Author:** Hardik Bhawsar ([@bhawsarhardik195-blip](https://github.com/bhawsarhardik195-blip))
+* **Historical Mission Documentation:** Dedicated to the engineers, flight controllers, scientists, and astronauts of NASA, ISRO, Roscosmos, and ESA whose achievements made these stories possible.
+* **Audio Synthesis:** Standard W3C Web Speech API specification.
+* **Hosting Infrastructure:** Cloudflare Pages edge delivery network.
 
 ---
 
 ## ⚖️ Licensing & Intellectual Property
 
-* **Application Source Code:** Distributed under the open-source MIT License.
+* **Application Source Code:** Distributed under the open-source **MIT License**.
 * **Visual & Video Assets:** Created with Google Gemini under Google Terms of Service for educational storytelling. Commercial reuse of the AI imagery should adhere to Google's terms and applicable jurisdictions.

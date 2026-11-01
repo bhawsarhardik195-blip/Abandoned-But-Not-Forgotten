@@ -1,4 +1,8 @@
-# OS Metadata and Cache files
+# Ignore Confidential & Private Materials
+CONFIDENTIAL/
+_BACKUP*/
+
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -23,8 +27,5 @@ yarn-error.log*
 .temp/
 .tmp/
 scratch/
-
-# Python cache (if run locally)
 __pycache__/
 *.py[cod]
-*$py.class
