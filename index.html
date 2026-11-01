@@ -75,7 +75,7 @@
       </div>
 
       <footer class="gw-foot">
-        <button type="button" class="link-btn" id="btn-credits-gw" data-i18n="credits">Credits &amp; disclosures</button>
+        <button type="button" class="link-btn" id="btn-credits-gw" data-i18n="credits">About &amp; Credits</button>
       </footer>
     </main>
   </section>
@@ -158,6 +158,11 @@
         <!-- Settings Button -->
         <button class="nav-icon-btn" id="btn-settings" title="Reading & Audio Settings" aria-label="Open Settings">
           <span>⚙️</span>
+        </button>
+
+        <!-- About & Credits Button -->
+        <button class="nav-icon-btn" id="btn-about" title="About & Credits" aria-label="Open About and Credits">
+          <span style="font-size: 0.95rem; font-weight: 700;">ℹ️</span>
         </button>
       </div>
     </header>
@@ -518,18 +523,22 @@
       </div>
     </div>
 
-    <!-- 4. Storybook Credits & Disclosures Modal -->
+    <!-- 4. Storybook About & Credits Modal -->
     <div class="modal-backdrop" id="credits-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cr-title">
-      <div class="modal-card wide" id="credits-card" style="max-width: 720px;">
-        <header class="modal-header">
-          <h2 class="modal-title" id="cr-title" data-i18n="credits">Credits &amp; disclosures</h2>
-          <button class="modal-close-btn" id="btn-close-credits" aria-label="Close Credits">&times;</button>
+      <div class="modal-card wide about-credits-card" id="credits-card">
+        <header class="modal-header about-credits-header">
+          <div class="about-credits-header-title">
+            <span class="ac-header-badge">Mission Archive &amp; Documentation</span>
+            <h2 class="modal-title" id="cr-title">About &amp; Credits</h2>
+          </div>
+          <button class="modal-close-btn" id="btn-close-credits" aria-label="Close About and Credits">&times;</button>
         </header>
-        <div class="modal-body" id="credits-body" style="line-height: 1.65; font-size: 0.95rem; max-height: 68vh; overflow-y: auto;">
-          <!-- Dynamically populated in English or Hindi -->
+        <div class="modal-body about-credits-body" id="credits-body">
+          <!-- Dynamically populated in English or Hindi by buildCredits() -->
         </div>
-        <footer class="modal-footer">
-          <span>Press <strong>Esc</strong> to close</span>
+        <footer class="modal-footer about-credits-footer">
+          <span class="ac-footer-esc">Press <kbd>Esc</kbd> to return to story</span>
+          <button type="button" class="ac-footer-close-btn" id="btn-footer-close-credits">Close Archive</button>
         </footer>
       </div>
     </div>
@@ -544,6 +553,7 @@
           <button class="hud-btn hud-btn-accent" id="btn-replay-final">↺ Replay Final Scene</button>
           <button class="hud-btn hud-btn-primary" id="btn-ending-switch-story">🚀 Explore Other Story</button>
           <button class="hud-btn" id="btn-restart-from-ending">Restart from Beginning</button>
+          <button class="hud-btn" id="btn-ending-credits">ℹ️ About &amp; Credits</button>
         </div>
       </div>
     </div>

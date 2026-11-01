@@ -26,6 +26,14 @@ class NarrationEngine {
     this.chosenVoiceURI = { en: null, hi: null };
     this.voiceListeners = [];
     this.heartbeatTimer = null;
+    this.isMobile = (typeof window !== 'undefined' && typeof navigator !== 'undefined') && (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || '') ||
+      ((navigator.maxTouchPoints || 0) > 1 && /Mobile|Tablet/i.test(navigator.userAgent || ''))
+    );
+    this.playbackSessionId = 0;
+    this.chunks = [];
+    this.chunkIndex = 0;
+    this.onFinishedCallback = null;
     this.onStateChange = options.onStateChange || (() => {});
     this.onComplete = options.onComplete || (() => {});
     this.onError = options.onError || (() => {});
@@ -248,26 +256,82 @@ class NarrationEngine {
   }
 
   /**
-   * Speak a passage of text in the active language
+   * Split passage text into natural sentence / clause chunks for mobile TTS engines.
+   * Prevents mobile Chromium (Android) and WebKit (iOS) 15-second speech buffer timeouts,
+   * audio clipping, and silent speech engine abortions.
    */
-  speak(text, onFinishedCallback) {
-    this.stop();
+  splitIntoChunks(text, maxLen = 140) {
+    if (!text) return [];
+    text = text.trim();
+    if (text.length <= maxLen) return [text];
 
-    if (!this.isSupported) {
-      console.warn("Speech Synthesis is not supported in this browser.");
-      this.notifyState(false, false);
-      if (onFinishedCallback) onFinishedCallback();
-      return false;
+    // Delimit by sentence endings: English [.?!;] and Hindi [।?!;]
+    const sentenceDelimiter = /([.?!;।]+(?:\s+|$))/g;
+    const rawParts = [];
+    let lastIdx = 0;
+    let match;
+    while ((match = sentenceDelimiter.exec(text)) !== null) {
+      const part = text.slice(lastIdx, match.index + match[1].length).trim();
+      if (part) rawParts.push(part);
+      lastIdx = sentenceDelimiter.lastIndex;
     }
+    const remaining = text.slice(lastIdx).trim();
+    if (remaining) rawParts.push(remaining);
 
-    if (!text || text.trim() === '') {
-      if (onFinishedCallback) onFinishedCallback();
-      return false;
+    const finalChunks = [];
+    let currentGroup = '';
+
+    for (const part of rawParts) {
+      if (part.length > maxLen) {
+        if (currentGroup) {
+          finalChunks.push(currentGroup);
+          currentGroup = '';
+        }
+        // Subdivide long sentence by natural clause pauses: commas, colons, em-dashes
+        const clauseDelimiter = /([,:,—–]\s+)/g;
+        let cLast = 0;
+        let cMatch;
+        const subParts = [];
+        while ((cMatch = clauseDelimiter.exec(part)) !== null) {
+          const sub = part.slice(cLast, cMatch.index + cMatch[1].length).trim();
+          if (sub) subParts.push(sub);
+          cLast = clauseDelimiter.lastIndex;
+        }
+        const cRem = part.slice(cLast).trim();
+        if (cRem) subParts.push(cRem);
+
+        let currentSub = '';
+        for (const sp of subParts) {
+          if (!currentSub) {
+            currentSub = sp;
+          } else if ((currentSub + ' ' + sp).length <= maxLen) {
+            currentSub += ' ' + sp;
+          } else {
+            finalChunks.push(currentSub);
+            currentSub = sp;
+          }
+        }
+        if (currentSub) finalChunks.push(currentSub);
+      } else {
+        if (!currentGroup) {
+          currentGroup = part;
+        } else if ((currentGroup + ' ' + part).length <= maxLen) {
+          currentGroup += ' ' + part;
+        } else {
+          finalChunks.push(currentGroup);
+          currentGroup = part;
+        }
+      }
     }
+    if (currentGroup) finalChunks.push(currentGroup);
 
-    const spokenText = this.prepareSpokenText(text, this.language);
-    const utterance = new SpeechSynthesisUtterance(spokenText);
+    return finalChunks.length > 0 ? finalChunks : [text];
+  }
 
+  /**
+   * Apply calibrated voice, pitch, and rate settings to an utterance.
+   */
+  applyVoiceSettings(utterance) {
     const chosenVoice = this.getChosenVoice(this.language);
 
     if (this.language === 'hi') {
@@ -296,70 +360,169 @@ class NarrationEngine {
       // Slight rate refinement (0.97) for warm, deliberate documentary storytelling
       utterance.rate = Math.max(0.5, Math.min(2.0, this.rate * 0.97));
     }
+  }
 
-    this.currentUtterance = utterance;
+  /**
+   * Speak a passage of text in the active language.
+   * On mobile devices, uses sequential sentence/clause chunking to maintain
+   * continuous narration and prevent Android Chrome / Safari 15s engine stalls.
+   * On desktop, maintains full single utterance delivery to preserve original behavior.
+   */
+  speak(text, onFinishedCallback) {
+    this.stop();
+
+    if (!this.isSupported) {
+      console.warn("Speech Synthesis is not supported in this browser.");
+      this.notifyState(false, false);
+      if (onFinishedCallback) onFinishedCallback();
+      return false;
+    }
+
+    if (!text || text.trim() === '') {
+      if (onFinishedCallback) onFinishedCallback();
+      return false;
+    }
+
+    const sessionId = ++this.playbackSessionId;
+    this.onFinishedCallback = onFinishedCallback;
+
+    const spokenText = this.prepareSpokenText(text, this.language);
+
+    // Mobile chunking protects against Android Chrome & Safari speech engine timeouts.
+    // Desktop continues using single passage to maintain existing laptop behavior.
+    if (this.isMobile) {
+      this.chunks = this.splitIntoChunks(spokenText);
+    } else {
+      this.chunks = [spokenText];
+    }
+
+    this.chunkIndex = 0;
     this.isPlaying = true;
     this.isPaused = false;
     this.notifyState(true, false);
 
-    // Keep-alive heartbeat for long sentences in Chromium browsers
-    this.startHeartbeat();
+    // Desktop keep-alive heartbeat for long sentences in Chromium desktop browsers
+    if (!this.isMobile) {
+      this.startHeartbeat();
+    }
 
-    utterance.onstart = () => {
-      this.isPlaying = true;
-      this.isPaused = false;
-      this.notifyState(true, false);
-    };
+    this.playNextChunk(sessionId);
+    return true;
+  }
 
-    utterance.onend = () => {
+  /**
+   * Play active chunk and chain sequentially to next chunk until passage is complete.
+   */
+  playNextChunk(sessionId) {
+    if (this.playbackSessionId !== sessionId) return;
+
+    if (this.chunkIndex >= this.chunks.length) {
+      // Completed all chunks of this passage!
       this.stopHeartbeat();
       this.isPlaying = false;
       this.isPaused = false;
       this.currentUtterance = null;
       this.notifyState(false, false);
-      if (onFinishedCallback) onFinishedCallback();
+      const cb = this.onFinishedCallback;
+      this.onFinishedCallback = null;
+      if (cb) cb();
       this.onComplete();
+      return;
+    }
+
+    const chunkText = this.chunks[this.chunkIndex];
+    if (!chunkText || chunkText.trim() === '') {
+      this.chunkIndex++;
+      this.playNextChunk(sessionId);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(chunkText);
+    this.applyVoiceSettings(utterance);
+
+    this.currentUtterance = utterance;
+
+    // Pin active utterance in a persistent bag on window to prevent V8 GC from killing it mid-speech on Android
+    if (typeof window !== 'undefined') {
+      window.__speechBag = window.__speechBag || [];
+      window.__speechBag.push(utterance);
+      if (window.__speechBag.length > 30) {
+        window.__speechBag.splice(0, 15);
+      }
+    }
+
+    let chunkHandled = false;
+    const advanceToNext = (wasError = false) => {
+      if (chunkHandled) return;
+      chunkHandled = true;
+
+      // Clean up reference from bag
+      if (typeof window !== 'undefined' && window.__speechBag) {
+        const bagIdx = window.__speechBag.indexOf(utterance);
+        if (bagIdx !== -1) window.__speechBag.splice(bagIdx, 1);
+      }
+
+      if (this.playbackSessionId !== sessionId) return;
+
+      this.chunkIndex++;
+      this.playNextChunk(sessionId);
+    };
+
+    utterance.onstart = () => {
+      if (this.playbackSessionId === sessionId) {
+        this.isPlaying = true;
+        this.isPaused = false;
+        this.notifyState(true, false);
+      }
+    };
+
+    utterance.onend = () => {
+      advanceToNext(false);
     };
 
     utterance.onerror = (event) => {
-      this.stopHeartbeat();
+      if (this.playbackSessionId !== sessionId) return;
       if (event.error !== 'interrupted' && event.error !== 'canceled') {
         console.warn("Speech Synthesis Notice:", event.error);
         this.onError(event.error);
       }
-      this.isPlaying = false;
-      this.isPaused = false;
-      this.currentUtterance = null;
-      this.notifyState(false, false);
+      // CRITICAL MOBILE RECOVERY:
+      // Mobile browsers occasionally fire 'interrupted' or 'network' on a chunk.
+      // Advance to next chunk or complete rather than hanging Auto Mode!
+      advanceToNext(true);
     };
 
     utterance.onpause = () => {
-      this.isPaused = true;
-      this.notifyState(true, true);
+      if (this.playbackSessionId === sessionId) {
+        this.isPaused = true;
+        this.notifyState(true, true);
+      }
     };
 
     utterance.onresume = () => {
-      this.isPaused = false;
-      this.notifyState(true, false);
+      if (this.playbackSessionId === sessionId) {
+        this.isPaused = false;
+        this.notifyState(true, false);
+      }
     };
+
+    if (this.onBoundary) {
+      utterance.onboundary = (e) => this.onBoundary(e);
+    }
 
     try {
       this.synth.speak(utterance);
-      return true;
     } catch (err) {
-      this.stopHeartbeat();
-      console.warn("Failed to execute synth.speak:", err);
-      this.isPlaying = false;
-      this.isPaused = false;
-      this.currentUtterance = null;
-      this.notifyState(false, false);
-      return false;
+      console.warn("synth.speak error:", err);
+      advanceToNext(true);
     }
   }
 
   startHeartbeat() {
     this.stopHeartbeat();
-    if (!this.synth) return;
+    // On mobile devices, pause()/resume() cycles cause audio drops and interrupted errors!
+    // Heartbeat is strictly desktop-only where Chrome 15s bug requires it.
+    if (this.isMobile || !this.synth) return;
     this.heartbeatTimer = setInterval(() => {
       if (this.isPlaying && !this.isPaused && this.synth) {
         this.synth.pause();
@@ -388,11 +551,25 @@ class NarrationEngine {
       this.synth.resume();
       this.isPaused = false;
       this.notifyState(true, false);
+
+      // Mobile resilience check: if mobile browser dropped speech during pause, resume current chunk
+      if (this.isMobile && this.synth) {
+        setTimeout(() => {
+          if (this.isPlaying && !this.isPaused && !this.synth.speaking && this.chunkIndex < this.chunks.length) {
+            this.playNextChunk(this.playbackSessionId);
+          }
+        }, 200);
+      }
     }
   }
 
   stop() {
+    this.playbackSessionId++;
     this.stopHeartbeat();
+    this.chunks = [];
+    this.chunkIndex = 0;
+    this.onFinishedCallback = null;
+
     if (this.currentUtterance) {
       // Detach listeners before cancelling so cancelled utterances NEVER fire callbacks!
       this.currentUtterance.onend = null;
@@ -400,11 +577,14 @@ class NarrationEngine {
       this.currentUtterance.onstart = null;
       this.currentUtterance.onpause = null;
       this.currentUtterance.onresume = null;
+      this.currentUtterance.onboundary = null;
       this.currentUtterance = null;
     }
     if (this.isSupported && this.synth) {
       try {
-        this.synth.cancel();
+        if (this.synth.speaking || this.synth.pending) {
+          this.synth.cancel();
+        }
       } catch (e) {
         // Safe catch
       }

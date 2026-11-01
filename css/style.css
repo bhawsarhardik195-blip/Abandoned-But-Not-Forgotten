@@ -713,7 +713,7 @@ body.immersive-mode .immersive-exit-btn {
   background: rgba(4, 7, 14, 0.78);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  z-index: 100;
+  z-index: 900;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2729,6 +2729,400 @@ body.subs-xlarge { --subtitle-font-size: var(--sub-xlarge); }
 .hud-btn-icon.active {
   background: rgba(255, 255, 255, 0.2);
   color: var(--primary-gold-bright);
+}
+
+/* ==========================================================================
+   About & Credits Section — Cinematic Documentary Aesthetic
+   ========================================================================== */
+.about-credits-card {
+  max-width: 780px !important;
+  width: 95%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(30, 42, 68, 0.95), rgba(10, 14, 26, 0.98)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.85), 0 0 40px rgba(246, 192, 67, 0.08) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.about-credits-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.about-credits-header-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.ac-header-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-gold, #f6c043);
+  margin-bottom: 4px;
+}
+
+.about-credits-body {
+  padding: 26px 28px 24px;
+  max-height: 70vh !important;
+  overflow-y: auto;
+  color: var(--text-main, #e8edf5);
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+
+/* 1. Hero Block */
+.ac-hero-block {
+  text-align: center;
+  padding: 24px 20px 26px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.008) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ac-hero-block::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 90px;
+  background: radial-gradient(circle, var(--primary-gold-glow, rgba(246, 192, 67, 0.25)), transparent 70%);
+  pointer-events: none;
+}
+
+.ac-project-title {
+  font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
+
+.ac-tm {
+  font-size: 0.6em;
+  vertical-align: super;
+  color: var(--primary-gold, #f6c043);
+  margin-left: 2px;
+}
+
+.ac-project-tagline {
+  font-size: 1.02rem;
+  color: rgba(225, 235, 250, 0.88);
+  max-width: 620px;
+  margin: 0 auto 16px auto;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.ac-mission-badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ac-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ac-badge.mars {
+  border-color: rgba(255, 107, 61, 0.4);
+  background: rgba(255, 107, 61, 0.1);
+  color: #ff9e7d;
+}
+
+.ac-badge.moon {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.1);
+  color: #93c5fd;
+}
+
+/* 2. Creator Block */
+.ac-creator-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 22px;
+  gap: 16px;
+}
+
+.ac-creator-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ac-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-gold, #f6c043);
+  margin-bottom: 4px;
+}
+
+.ac-creator-name {
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  margin: 0 0 3px 0;
+}
+
+.ac-creator-role {
+  font-size: 0.82rem;
+  color: rgba(200, 215, 235, 0.68);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ac-creator-seal {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-gold-glow, rgba(246, 192, 67, 0.4));
+  background: rgba(246, 192, 67, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+/* 3. Two-Column / Grid Layout */
+.ac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.ac-card {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ac-card-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-gold, #f6c043);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-card-text {
+  font-size: 0.88rem;
+  color: rgba(230, 240, 255, 0.9);
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+}
+
+.ac-card-subtext {
+  font-size: 0.8rem;
+  color: rgba(180, 195, 220, 0.68);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.ac-copy-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.02em;
+}
+
+.ac-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 14px 0;
+}
+
+/* 4. Acknowledgments Block */
+.ac-acknowledgments-block {
+  padding: 20px 22px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  margin-bottom: 4px;
+}
+
+.ac-ack-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-gold, #f6c043);
+  margin-bottom: 14px;
+}
+
+.ac-partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ac-partner-tile {
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ac-partner-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-partner-role {
+  font-size: 0.76rem;
+  color: rgba(185, 200, 225, 0.68);
+  line-height: 1.4;
+}
+
+.ac-disclaimer-note {
+  font-size: 0.76rem;
+  color: rgba(160, 175, 200, 0.6);
+  line-height: 1.5;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+}
+
+/* Footer styling */
+.about-credits-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.ac-footer-esc {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ac-footer-esc kbd {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.74rem;
+  font-family: inherit;
+  color: #ffffff;
+}
+
+.ac-footer-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ac-footer-close-btn:hover {
+  background: var(--primary-gold, #f6c043);
+  color: #0b101f;
+  border-color: var(--primary-gold, #f6c043);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .about-credits-card {
+    width: 100% !important;
+  }
+  .about-credits-header {
+    padding: 16px 18px 14px;
+  }
+  .about-credits-body {
+    padding: 18px 16px 18px;
+    max-height: 74vh !important;
+  }
+  .ac-hero-block {
+    padding: 18px 14px 20px;
+    margin-bottom: 16px;
+  }
+  .ac-project-tagline {
+    font-size: 0.92rem;
+  }
+  .ac-creator-block {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .ac-creator-seal {
+    display: none;
+  }
+  .ac-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .ac-partners-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .about-credits-footer {
+    padding: 12px 16px;
+  }
+  .ac-footer-esc {
+    display: none;
+  }
+  .ac-footer-close-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 
