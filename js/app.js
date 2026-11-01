@@ -141,6 +141,12 @@
     // Top action buttons
     dom.btnToggleHotspots = document.getElementById('btn-toggle-hotspots');
     dom.btnChapterMenu = document.getElementById('btn-chapter-menu');
+    dom.centerIndicator = document.querySelector('.center-indicator');
+    if (dom.centerIndicator) {
+      dom.centerIndicator.setAttribute('role', 'button');
+      dom.centerIndicator.setAttribute('tabindex', '0');
+      dom.centerIndicator.setAttribute('title', 'Chapters & Timeline Map (Click to open)');
+    }
     dom.btnToggleImmersive = document.getElementById('btn-toggle-immersive');
     dom.btnSettings = document.getElementById('btn-settings');
     dom.immersiveExitBtn = document.getElementById('immersive-exit-btn');
@@ -1592,6 +1598,15 @@
     // Top Header Buttons
     dom.btnToggleHotspots.addEventListener('click', toggleHotspots);
     dom.btnChapterMenu.addEventListener('click', openChapterModal);
+    if (dom.centerIndicator) {
+      dom.centerIndicator.addEventListener('click', openChapterModal);
+      dom.centerIndicator.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openChapterModal();
+        }
+      });
+    }
     dom.btnToggleImmersive.addEventListener('click', toggleImmersiveMode);
     dom.immersiveExitBtn.addEventListener('click', toggleImmersiveMode);
     dom.btnSettings.addEventListener('click', openSettingsModal);
